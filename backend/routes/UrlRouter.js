@@ -11,7 +11,7 @@ const urlService = new UrlService();
 router.get("/go/:id", async (req, res) => {
   const urlId = req.params.id;
   const response = await urlService.getUrlById(urlId);
-  const origUrl = response["Items"][0]["origUrl"]["S"];
+  const origUrl = response["origUrl"]["S"];
 
   return res.redirect(origUrl);
 });
