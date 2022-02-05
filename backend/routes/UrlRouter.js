@@ -19,8 +19,9 @@ router.get("/go/:id", async (req, res) => {
 // create new short url
 router.post("/createUrl", async (req, res) => {
   const origUrl = req.body.origUrl;
+  const host = req.headers.host;
   const urlModel = new UrlModel(nanoid(), origUrl);
-  const response = await urlService.createUrl(urlModel);
+  const response = await urlService.createUrl(urlModel, host);
 
   return res.json(response);
 });
