@@ -6,14 +6,16 @@ const {
 } = require("@aws-sdk/client-dynamodb");
 const client = require("../config/aws-dynamodb");
 
+const TABLE_NAME = "short_url";
+
 class UrlService {
-  async createUrl(urlModel) {
+  async createUrl(urlModel, host) {
     const command = new PutItemCommand({
-      TableName: "short_url",
+      TableName: TABLE_NAME,
       Item: {
         urlId: { S: urlModel.urlId },
         origUrl: { S: urlModel.origUrl },
-        shortUrl: { S: `http://localhost:1999/go/${urlModel.urlId}` },
+        shortUrl: { S: `http://${host}/go/${urlModel.urlId}` },
         createdDate: { S: new Date().toString() },
       },
     });
@@ -27,7 +29,7 @@ class UrlService {
 
   async getAllUrls() {
     const command = new ScanCommand({
-      TableName: "short_url",
+      TableName: TABLE_NAME,
       ReturnConsumedCapacity: "TOTAL",
     });
 
@@ -35,12 +37,12 @@ class UrlService {
       console.log(error);
     });
 
-    return res;
+    return res["Items"] || [];
   }
 
   async getUrlById(id) {
     const command = new ScanCommand({
-      TableName: "short_url",
+      TableName: TABLE_NAME,
       FilterExpression: "urlId = :val",
       ExpressionAttributeValues: { ":val": { S: id } },
       ReturnConsumedCapacity: "TOTAL",
@@ -50,18 +52,21 @@ class UrlService {
       console.log(error);
     });
 
-    return res;
+    return res["Count"] > 0 ? res["Items"][0] : {};
   }
 
   async updateUrl(urlModel) {
-    const command = new PutItemCommand({
-      TableName: "short_url",
-      Item: {
+    const command = new UpdateItemCommand({
+      TableName: TABLE_NAME,
+      Key: {
         urlId: { S: urlModel.urlId },
-        origUrl: { S: urlModel.origUrl },
-        shortUrl: { S: `http://localhost:1999/go/${urlModel.urlId}` },
-        createdDate: { S: new Date().toString() },
       },
+      UpdateExpression: "set origUrl = :val1, updatedDate = :val2",
+      ExpressionAttributeValues: {
+        ":val1": { S: urlModel.origUrl },
+        ":val2": { S: new Date().toString() },
+      },
+      ReturnValues: "UPDATED_NEW",
     });
 
     const res = await client.send(command).catch((error) => {
@@ -73,7 +78,7 @@ class UrlService {
 
   async deleteUrlById(id) {
     const command = new DeleteItemCommand({
-      TableName: "short_url",
+      TableName: TABLE_NAME,
       Key: { urlId: { S: id } },
     });
 
