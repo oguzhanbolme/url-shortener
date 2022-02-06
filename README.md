@@ -1,5 +1,10 @@
 # Url Shortener
 
+### How does it work ?
+- Enter your own AWS information in the .env file in the backend directory.
+- cd backend && npm start
+- cd frontend && npm start
+
 ### Used Technologies
 - React
 - Node.js (Express.js)
