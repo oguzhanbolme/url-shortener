@@ -1,7 +1,7 @@
-.leftContainer{
-    display: flex;
-    flex: 0.5;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.leftContainer {
+  display: flex;
+  flex: 0.5;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
