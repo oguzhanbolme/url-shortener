@@ -1,7 +1,12 @@
+import React from "react";
+import UrlList from "./components/UrlList";
+import UrlCreation from "./components/UrlCreation";
+
 export default function App() {
   return (
-    <div>
-      <h1>Url Shortener</h1>
+    <div className="App">
+      <UrlList />
+      <UrlCreation />
     </div>
   );
 }
