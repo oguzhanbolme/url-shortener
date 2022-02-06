@@ -1,4 +1,4 @@
-# Url Shortener
+# Url Shortener (DynamoDB CRUD Example)
 
 ### How does it work ?
 - Run npm install command for both folders (frontend, backend)
