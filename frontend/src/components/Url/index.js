@@ -33,7 +33,11 @@ export default function Url({ url }) {
         delete
       </button>
       <button
-        onClick={() => navigator.clipboard.writeText(url.shortUrl.S)}
+        onClick={() =>
+          navigator.clipboard.writeText(url.shortUrl.S).then(() => {
+            alert("Shortened Url Copied!");
+          })
+        }
         className="crudButton"
       >
         copy
