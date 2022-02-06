@@ -10,21 +10,23 @@ const TABLE_NAME = "short_url";
 
 class UrlService {
   async createUrl(urlModel, host) {
+    const item = {
+      urlId: { S: urlModel.urlId },
+      origUrl: { S: urlModel.origUrl },
+      shortUrl: { S: `http://${host}/go/${urlModel.urlId}` },
+      createdDate: { S: new Date().toString() },
+    };
+
     const command = new PutItemCommand({
       TableName: TABLE_NAME,
-      Item: {
-        urlId: { S: urlModel.urlId },
-        origUrl: { S: urlModel.origUrl },
-        shortUrl: { S: `http://${host}/go/${urlModel.urlId}` },
-        createdDate: { S: new Date().toString() },
-      },
+      Item: item,
     });
 
-    const res = await client.send(command).catch((error) => {
+    await client.send(command).catch((error) => {
       console.log(error);
     });
 
-    return res;
+    return item;
   }
 
   async getAllUrls() {
@@ -52,7 +54,7 @@ class UrlService {
       console.log(error);
     });
 
-    return res["Count"] > 0 ? res["Items"][0] : {};
+    return res["Count"] > 0 ? res["Items"][0] : null;
   }
 
   async updateUrl(urlModel) {
