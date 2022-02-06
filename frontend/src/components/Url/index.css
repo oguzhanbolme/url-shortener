@@ -1,0 +1,22 @@
+.urlContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.crudButton {
+  font-weight: bold;
+  font-size: 16px;
+  color: #05445e;
+  background-color: #ef7c8e;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  margin: 16px;
+}
+
+.crudButton:active {
+  background-color: #ef7c8e;
+  box-shadow: 0 5px #05445e;
+  transform: translateY(4px);
+}

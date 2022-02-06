@@ -1,0 +1,42 @@
+.rightContainer {
+  display: flex;
+  flex: 0.5;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.urlCreationTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 16px;
+}
+
+.longUrlInput {
+  width: 75%;
+  font-size: 16px;
+  color: #05445e;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 16px;
+}
+
+.createUrlButton {
+  width: 50%;
+  font-weight: bold;
+  font-size: 16px;
+  color: #05445e;
+  background-color: #ef7c8e;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  margin: 16px;
+}
+
+.createUrlButton:active {
+  background-color: #ef7c8e;
+  box-shadow: 0 5px #05445e;
+  transform: translateY(4px);
+}
