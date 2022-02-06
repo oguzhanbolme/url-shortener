@@ -19,13 +19,13 @@ export async function getUrlById(urlId) {
   return result;
 }
 
-export async function updateUrl(origUrl) {
+export async function updateUrl(urlId, origUrl) {
   const result = await fetch("/updateUrl", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ origUrl: origUrl }),
+    body: JSON.stringify({ urlId:urlId, origUrl: origUrl }),
   }).then((response) => response.json());
   return result;
 }
