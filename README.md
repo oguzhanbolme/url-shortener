@@ -3,6 +3,7 @@
 ### How does it work ?
 - Run npm install command for both folders (frontend, backend)
 - Enter your own AWS information in the .env file in the backend directory
+- Notice the database name is the same on both sides (dynamodb, backend/services/urlservice)
 - cd backend && npm start
 - cd frontend && npm start
 
