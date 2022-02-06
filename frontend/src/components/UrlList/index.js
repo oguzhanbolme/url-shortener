@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import Url from "../Url";
 import "./index.css";
+import { useUrlContext } from "../../context/UrlContext";
 
 export default function UrlList() {
-  const [urls, setUrls] = useState([
-    { origUrl: "https://www.youtube.com/", shortUrl: "short1" },
-    { origUrl: "https://www.youtube.com/", shortUrl: "short1" },
-    { origUrl: "https://www.youtube.com/", shortUrl: "short1" },
-  ]);
-
-  const urlList = urls.map((url, index) => <Url key={index} url={url} />);
+  const { urls } = useUrlContext();
+  const urlList = urls.map((url, index) => <Url key={url.urlId.S} url={url} />);
 
   return (
     <div className="leftContainer">
-      <p className="urlCreationTitle">URL List</p>
-      {urlList}
+      <p className="urlCreationTitle">URL List 😎</p>
+      {urlList.length > 0 ? urlList : <h3>nothing to see 😒</h3>}
     </div>
   );
 }
