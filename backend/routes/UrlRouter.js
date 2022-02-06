@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { nanoid } = require("nanoid");
+const { isUri } = require("valid-url");
 
 const UrlModel = require("../models/UrlModel");
 const UrlService = require("../services/UrlService");
@@ -11,9 +12,13 @@ const urlService = new UrlService();
 router.get("/go/:id", async (req, res) => {
   const urlId = req.params.id;
   const response = await urlService.getUrlById(urlId);
-  const origUrl = response["origUrl"]["S"];
+  const origUrl = response ? response["origUrl"]["S"] : "";
 
-  return res.redirect(origUrl);
+  if (isUri(origUrl)) {
+    return res.redirect(origUrl);
+  }
+
+  return res.send("This url is not valid.");
 });
 
 // create new short url
